@@ -16,6 +16,7 @@ public class NavigationManager {
         case mainWeatherData = "MainWeatherData"
         case forecastWeather = "WeatherForecast"
         case settings = "Settings"
+        case errorView = "ErrorView"
     }
     
     
@@ -34,6 +35,12 @@ public class NavigationManager {
         forecast.lat = lat
         forecast.lon = lon
         vc.navigationController?.pushViewController(forecast, animated: true)
+    }
+    
+    class func presentErrorScreen(vc: UIViewController, errorCode: String) {
+        let errorScreen = mainStoryboard.instantiateViewController(withIdentifier: ViewNames.errorView.rawValue) as! ErrorViewController
+        errorScreen.errorCode = errorCode
+        vc.navigationController?.pushViewController(errorScreen, animated: true)
     }
     
     

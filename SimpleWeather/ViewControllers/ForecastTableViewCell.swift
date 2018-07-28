@@ -18,13 +18,18 @@ class ForecastTableViewCell: UITableViewCell {
     @IBOutlet weak var PrecipLabel: UILabel!
     @IBOutlet weak var ForecastTextDescription: UILabel!
     @IBOutlet weak var ForecastDateLabel: UILabel!
+    @IBOutlet weak var BackView: UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         AvgTempTitleLabel.text = LocalizeApp.averageTemp.instance
         PrecipTitleLabel.text = LocalizeApp.precipitation.instance
+        BackView.makeCornersRounder(radius: 10)
+        BackView.dropShadow()
     }
 
    
 
 }
+
+

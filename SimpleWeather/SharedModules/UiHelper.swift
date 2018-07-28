@@ -53,8 +53,17 @@ extension UIView {
         self.layer.cornerRadius = self.frame.height/2
     }
     
+    
     func makeCornersRounder(radius: Int) {
         self.layer.cornerRadius = CGFloat(radius)
+    }
+    
+    func dropShadow() {
+        self.layer.masksToBounds = false 
+        self.layer.shadowColor = UIColor.gray.cgColor
+        self.layer.shadowOpacity = 0.3
+        self.layer.shadowOffset = CGSize.zero
+        self.layer.shadowRadius = 2
     }
 }
 

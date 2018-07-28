@@ -21,7 +21,7 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     @IBOutlet weak var ContactUsButtonOutlet: UIButton!
     @IBOutlet weak var DescriptionTextView: UITextView!
     
-    private let gitHubUrl = ""
+    private let gitHubUrl = "https://github.com/PhotolocaDeveloper/SimpleWeather"
     private let email = "georglyurko@yandex.ru"
     
     override func viewWillAppear(_ animated: Bool) {
@@ -129,7 +129,7 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
         SegmentSwitcher.setTitle(LocalizeApp.eu.instance, forSegmentAt: 0)
         SegmentSwitcher.setTitle(LocalizeApp.us.instance, forSegmentAt: 1)
         
-        BuildNumberLabel.text = LocalizeApp.buildNumber.instance + ":" + " " + UiHelper.getBuildNumber()
+        BuildNumberLabel.text = UiHelper.getBuildNumber()
     }
     
     private func configureMailController() -> MFMailComposeViewController {

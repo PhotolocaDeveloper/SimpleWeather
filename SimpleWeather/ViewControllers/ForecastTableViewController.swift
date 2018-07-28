@@ -35,15 +35,19 @@ class ForecastTableViewController: UITableViewController {
             self.arrayOfForecastData = weatherForcastArray
             print(self.arrayOfForecastData.count)
             self.tableView.reloadData()
-            
-            UIView.animate(withDuration: 0.2, animations: {
-                self.dimView.alpha = 0
-                ProgressHUD.dismiss()
-            })
-            
+            self.dissmisDimView()
         }) { (error) in
-            print(error)
+            self.dissmisDimView()
+            ProgressHUD.dismiss()
+            NavigationManager.presentErrorScreen(vc: self, errorCode: error)
         }
+    }
+    
+    private func dissmisDimView() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.dimView.alpha = 0
+            ProgressHUD.dismiss()
+        })
     }
     
     
@@ -101,6 +105,8 @@ class ForecastTableViewController: UITableViewController {
         super.viewWillAppear(true)
         arrayOfForecastData = nil
         weatherDataUiHeper = nil
+        weatherDataUiHeper = nil
+        dimView = nil 
     }
     
 

@@ -17,6 +17,7 @@
 "FeelsLike" = "Feelslike";
 "Pressure" = "Pressure";
 "SendingError" = "Sending mail error";
+"Retry" = "Retry";
 
 "Precip" = "Precipitation";
 "Humidity" = "Humidity";

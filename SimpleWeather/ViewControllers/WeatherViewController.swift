@@ -129,6 +129,10 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
+        } else {
+            dissmisDimView()
+            ProgressHUD.dismiss()
+            NavigationManager.presentErrorScreen(vc: self, errorCode: LocalizeApp.errorGettingsLocation.instance)
         }
     }
     
@@ -166,11 +170,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
                      // fill date func
                     self.weatherDataUiHeper.fillConditionWeatherData(conditionWeatherData: conditionWeatherData, weatherDescription: self.WeatherTextLabel, icon: self.ForecastImage)
                     
-                    // Dissmis dim after loading data
-                    UIView.animate(withDuration: 0.2, animations: {
-                        self.dimView.alpha = 0
-                        ProgressHUD.dismiss()
-                    })
+                    self.dissmisDimView()
                     
                 }
                 
@@ -178,7 +178,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
                 // fill date func
                 self.weatherDataUiHeper.fillLocationWeatherData(locationWeatherData: locationWeatherData, localTimeLabel: self.LocalTimeLabel, cityNameLabel: self.CityNameLabel)
             }) { (error) in
-                //
+                ProgressHUD.dismiss()
+                self.dissmisDimView()
+                NavigationManager.presentErrorScreen(vc: self, errorCode: error!)
             }
             
             locationManager.stopUpdatingLocation()
@@ -187,9 +189,17 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
     }
         
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Error \(error)")
+        dissmisDimView()
+        ProgressHUD.dismiss()
+        NavigationManager.presentErrorScreen(vc: self, errorCode: error.localizedDescription)
     }
     
+    private func dissmisDimView() {
+        UIView.animate(withDuration: 0.2, animations: {
+            self.dimView.alpha = 0
+            ProgressHUD.dismiss()
+        })
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
