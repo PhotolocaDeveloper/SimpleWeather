@@ -12,10 +12,12 @@
 "Location" = "Location";
 "ErrorGettingsLocation" = "Error gettings current location";
 "Bar" = "Bar";
-
+"SendinMailErroDesc" = "You should by sign in apple Mail app to send email this way. If you want to simply send it via browser or ohther app, hold on button to save email adress";
 "LocalTime" = "Local time";
 "FeelsLike" = "Feelslike";
 "Pressure" = "Pressure";
+"SendingError" = "Sending mail error";
+
 "Precip" = "Precipitation";
 "Humidity" = "Humidity";
 "Cloud" = "Cloud";

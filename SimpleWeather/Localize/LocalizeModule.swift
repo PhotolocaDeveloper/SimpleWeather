@@ -46,6 +46,8 @@ public enum LocalizeApp: String {
     case us = "US"
     case eu = "EU"
     case bar = "Bar"
+    case sendinMailErroDesc = "SendinMailErroDesc"
+    case sendingError = "SendingError"
     
     var instance: String  {
         return NSLocalizedString(self.rawValue, comment: "")

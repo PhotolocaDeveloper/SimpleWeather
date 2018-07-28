@@ -24,6 +24,8 @@
 "Day" = "Day";
 "Night" = "Night";
 "Kph" = "Kph";
+"SendingError" = "Sending mail error";
+
 "Mph" = "Mph";
 "mm" = "Mm";
 "Forecast" = "Forecast";
@@ -31,7 +33,7 @@
 "km" = "Km";
 "ml" = "Miles";
 "Settings" = "Settings";
-
+"SendinMailErroDesc" = "You should by sign in apple Mail app to send email this way. If you want to simply send it via browser or ohther app, hold on button to save email adress";
 
 "WindSpeed" = "Wind speed";
 "Lat" = "latitude";

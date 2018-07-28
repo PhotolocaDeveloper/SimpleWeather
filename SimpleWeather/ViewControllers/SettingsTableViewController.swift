@@ -9,8 +9,9 @@
 import UIKit
 import ProgressHUD
 import SafariServices
+import MessageUI
 
-class SettingsTableViewController: UITableViewController, UITextViewDelegate {
+class SettingsTableViewController: UITableViewController, UITextViewDelegate, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var BuildNumberLabel: UILabel!
     @IBOutlet weak var MetricSystemLabel: UILabel!
     @IBOutlet weak var SegmentSwitcher: UISegmentedControl!
@@ -45,6 +46,16 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate {
         
     }
     
+    @IBAction func ContactUsButton(_ sender: UIButton) {
+        let mailComposeViewController = configureMailController()
+        if MFMailComposeViewController.canSendMail() {
+            self.present(mailComposeViewController, animated: true, completion: nil)
+        } else {
+            print("error")
+        }
+    }
+    
+    
     private func setupLongButtonHold() {
         let longGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap(sender:)))
         ContactUsButtonOutlet.addGestureRecognizer(longGesture)
@@ -65,7 +76,7 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate {
     }
     
     @IBAction func ViewSourceCode(_ sender: UIButton) {
-        let url = URL(string: gitHubUrl!)
+        let url = URL(string: gitHubUrl)
         if UIApplication.shared.canOpenURL(url!) {
             let safariView = SFSafariViewController(url: url!)
             present(safariView, animated: true, completion: nil)
@@ -119,6 +130,22 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate {
         SegmentSwitcher.setTitle(LocalizeApp.us.instance, forSegmentAt: 1)
         
         BuildNumberLabel.text = LocalizeApp.buildNumber.instance + ":" + " " + UiHelper.getBuildNumber()
+    }
+    
+    private func configureMailController() -> MFMailComposeViewController {
+        let mailComposer = MFMailComposeViewController()
+        mailComposer.mailComposeDelegate = self
+        mailComposer.setToRecipients([email])
+        mailComposer.setSubject("Simple weather app suggestions")
+        mailComposer.setMessageBody("", isHTML: false)
+        
+        return mailComposer
+        
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        
+        controller.dismiss(animated: true, completion: nil)
     }
     
    

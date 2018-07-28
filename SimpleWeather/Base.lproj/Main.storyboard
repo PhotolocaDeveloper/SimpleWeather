@@ -754,6 +754,9 @@
                                                     <state key="normal" title="Button">
                                                         <color key="titleColor" red="0.46666666670000001" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="ContactUsButton:" destination="GoF-Bo-kiW" eventType="touchUpInside" id="k2c-WO-7cW"/>
+                                                    </connections>
                                                 </button>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zME-zH-HgG">
                                                     <rect key="frame" x="16" y="87" width="288" height="167"/>
