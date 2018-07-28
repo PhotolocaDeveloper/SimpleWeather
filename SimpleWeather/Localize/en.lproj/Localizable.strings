@@ -1,0 +1,48 @@
+/* 
+  Localizable.strings
+  SimpleWeather
+
+  Created by George Lyurko on 26.07.2018.
+  Copyright © 2018 George Lyurko. All rights reserved.
+*/
+"BuildNumber" = "Build number";
+"Ok" = "Ok";
+"ErrorGettingsWeatherData" = "Error while gettings weather data";
+"Data" = "Data";
+"Location" = "Location";
+"ErrorGettingsLocation" = "Error gettings current location";
+"Bar" = "Bar";
+
+"LocalTime" = "Local time";
+"FeelsLike" = "Feelslike";
+"Pressure" = "Pressure";
+"Precip" = "Precipitation";
+"Humidity" = "Humidity";
+"Cloud" = "Cloud";
+"TimeOfDay" = "Time of day";
+"Visibility" = "Visibility";
+"Day" = "Day";
+"Night" = "Night";
+"Kph" = "Kph";
+"Mph" = "Mph";
+"mm" = "Mm";
+"Settings" = "Settings";
+"Forecast" = "Forecast";
+"WindSpeed" = "Wind speed";
+"in" = "Inches";
+"km" = "Km";
+"ml" = "Miles";
+"AverageTemp" = "Average temperature";
+"Precipitation" = "Total Precipitation";
+
+"SelectMetricsSystem" = "Select metrics system";
+"ViewCode" = "View app source code";
+"ContactUs" = "Contact us";
+"US" = "USA";
+"EU" = "Europe";
+
+"MakeBetterDesc"  = "If you have suggestions for improving the performance of the application or you have noticed a bug - contact us by email by clicking on the button. If you do not use the standard email application for iPhone you can copy the email address by holding the button above.";
+
+
+
+
