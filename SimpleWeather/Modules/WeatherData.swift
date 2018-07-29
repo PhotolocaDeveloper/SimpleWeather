@@ -67,6 +67,20 @@ class CurrentWeatherData {
 class WeatherForecast {
     var avgtempC: Double!
     var avgtempF: Double!
+    
+    var maxTempF: Double!
+    var maxTempC: Double!
+    
+    var minTempC: Double!
+    var minTempF: Double!
+    
+    var maxWindSpeedKph: Double!
+    var maxWindSpeedMph: Double!
+    var avgvisKm: Double!
+    var avgvisMiles: Double!
+    var avghumidity: Double!
+    
+    
     var totalprecipMm: Double!
     var totalprecipIn: Double!
     var text: String!
@@ -81,6 +95,15 @@ class WeatherForecast {
         case icon = "icon"
         case text = "text"
         case date = "date"
+        case maxTempF = "maxtemp_f"
+        case maxTempC = "maxtemp_c"
+        case minTempC = "mintemp_c"
+        case minTempF = "mintemp_f"
+        case maxWindSpeedKph = "maxwind_kph"
+        case maxWindSpeedMph = "maxwind_mph"
+        case avgvisKm = "avgvis_km"
+        case avgvisMiles = "avgvis_miles"
+        case avghumidity = "avghumidity"
     }
     
     init(forecastData:[String: Any], conditionData: [String: Any], forecastDayData: [String: Any]) {
@@ -91,6 +114,15 @@ class WeatherForecast {
         self.text = conditionData[weatherForecastKeys.text.rawValue] as? String
         self.icon = conditionData[weatherForecastKeys.icon.rawValue] as? String
         self.date = forecastDayData[weatherForecastKeys.date.rawValue] as? String
+        self.maxTempC = forecastData[weatherForecastKeys.maxTempC.rawValue] as? Double
+        self.maxTempF = forecastData[weatherForecastKeys.maxTempF.rawValue] as? Double
+        self.maxWindSpeedKph = forecastData[weatherForecastKeys.maxWindSpeedKph.rawValue] as? Double
+        self.maxWindSpeedMph = forecastData[weatherForecastKeys.maxWindSpeedMph.rawValue] as? Double
+        self.avgvisKm = forecastData[weatherForecastKeys.avgvisKm.rawValue] as? Double
+        self.avgvisMiles = forecastData[weatherForecastKeys.avgvisMiles.rawValue] as? Double
+        self.avghumidity = forecastData[weatherForecastKeys.avghumidity.rawValue] as? Double
+        self.minTempC = forecastData[weatherForecastKeys.minTempC.rawValue] as? Double
+        self.minTempF = forecastData[weatherForecastKeys.minTempF.rawValue] as? Double
     }
     
     

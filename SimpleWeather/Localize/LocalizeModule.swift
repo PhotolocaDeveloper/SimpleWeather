@@ -49,6 +49,14 @@ public enum LocalizeApp: String {
     case sendinMailErroDesc = "SendinMailErroDesc"
     case sendingError = "SendingError"
     case retry = "Retry"
+    case maxTemp = "MaxTemp"
+    case minTemp = "MinTemp"
+    case maxWindSpeed = "MaxWindSpeed"
+    case averageHumidity = "AverageHumidity"
+    case AverageVis = "AverageVis"
+    case kmShort = "kmShort"
+    
+    
     var instance: String  {
         return NSLocalizedString(self.rawValue, comment: "")
     }

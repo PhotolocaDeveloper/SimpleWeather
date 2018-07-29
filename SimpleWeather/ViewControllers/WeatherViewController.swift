@@ -225,17 +225,15 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
         self.LonTitleLabel.text = LocalizeApp.lon.instance
         PressureTitleLabel.text = LocalizeApp.pressure.instance
         ForecastOutlet.setTitle(LocalizeApp.forecast.instance, for: .normal)
-        
     }
-    
-    
-   
+
 
 }
 
 extension Double {
     func roundTo(places: Int) -> Double {
         let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
+        let roundedDouble = (self * divisor).rounded() / divisor
+        return roundedDouble
     }
 }

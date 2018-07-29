@@ -67,6 +67,42 @@ class WeatherDataUiHeper {
         
     }
     
+    func fillPreviewForecastData(weatherForecastData: WeatherForecast, icon: UIImageView, maxTempLabel: UILabel, minTempLabel: UILabel, maxWindSpeedLabel: UILabel, avgHumidityLabel: UILabel, avgVisLabel: UILabel) {
+        
+        icon.kf.setImage(with: makeUrl(iconUrl: weatherForecastData.icon))
+        
+        let avgHumidity = weatherForecastData.avghumidity.roundTo(places: 1)
+        avgHumidityLabel.text = String(avgHumidity) + " " + "%"
+        
+        if isCelsius == true {
+            let minTemp = weatherForecastData.minTempC.roundTo(places: 2)
+            minTempLabel.text = String(minTemp) + " " + "C"
+            
+            let maxTemp = weatherForecastData.maxTempC.roundTo(places: 2)
+            maxTempLabel.text = String(maxTemp) + " " + "C"
+            
+            let maxWindSpeed = weatherForecastData.maxWindSpeedKph.roundTo(places: 2)
+            maxWindSpeedLabel.text = String(maxWindSpeed) + " " + LocalizeApp.kph.instance
+            
+            let avgVis = weatherForecastData.avgvisKm.roundTo(places: 2)
+            avgVisLabel.text = String(avgVis) + " " + LocalizeApp.kmShort.instance
+            
+        } else {
+            let minTemp = weatherForecastData.minTempF.roundTo(places: 2)
+            minTempLabel.text = String(minTemp) + " " + "F"
+            
+            let maxTemp = weatherForecastData.maxTempF.roundTo(places: 2)
+            maxTempLabel.text = String(maxTemp) + " " + "F"
+            
+            let maxWindSpeed = weatherForecastData.maxWindSpeedMph.roundTo(places: 2)
+            maxWindSpeedLabel.text = String(maxWindSpeed) + " " + LocalizeApp.mph.instance
+            
+            let avgVis = weatherForecastData.avgvisMiles.roundTo(places: 2)
+            avgVisLabel.text = String(avgVis) + " " + LocalizeApp.ml.instance
+        }
+        
+    }
+    
     func fillForecast(weatherForecastData: WeatherForecast, icon: UIImageView, date: UILabel, text: UILabel, avgTemp: UILabel, precip: UILabel) {
         
         text.text = String(weatherForecastData.text)

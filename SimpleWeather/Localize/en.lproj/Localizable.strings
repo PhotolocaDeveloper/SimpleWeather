@@ -37,6 +37,8 @@
 "ml" = "Miles";
 "AverageTemp" = "Average temperature";
 "Precipitation" = "Total Precipitation";
+"kmShort" = "Km";
+
 
 "SelectMetricsSystem" = "Metrics system";
 "ViewCode" = "Source code";
@@ -46,6 +48,10 @@
 
 "MakeBetterDesc"  = "Hold on button to save email to clipboard";
 
-
+"MaxTemp" = "Max tempreture";
+"MinTemp" = "Min tempreture";
+"MaxWindSpeed" = "Max wind speed";
+"AverageHumidity" = "Average humidity";
+"AverageVis" = "Average visibility";
 
 

@@ -38,6 +38,20 @@ public class UiHelper {
         vc.present(alert, animated: true, completion: nil)
     }
     
+    class func roundViewConrners(views: [UIView], radius: Int) {
+        let viewsCount = views.count - 1
+        for i in 0...viewsCount {
+            views[i].makeCornersRounder(radius: radius)
+        }
+    }
+    
+    class func dropViewShadows(views: [UIView]) {
+        let viewsCount = views.count - 1
+        for i in 0...viewsCount {
+            views[i].dropShadow()
+        }
+    }
+    
     
     
 }

@@ -32,6 +32,7 @@
 "Forecast" = "Forecast";
 "in" = "Inches";
 "km" = "Km";
+"kmShort" = "Km";
 "ml" = "Miles";
 "Settings" = "Settings";
 "SendinMailErroDesc" = "You should by sign in apple Mail app to send email this way. If you want to simply send it via browser or ohther app, hold on button to save email adress";
@@ -49,4 +50,10 @@
 "EU" = "Europe";
 
 "MakeBetterDesc"  = "Hold on button to save email to clipboard";
+
+"MaxTemp" = "Max tempreture";
+"MinTemp" = "Min tempreture";
+"MaxWindSpeed" = "Max wind speed";
+"AverageHumidity" = "Average humidity";
+"AverageVis" = "Average visibility";
 

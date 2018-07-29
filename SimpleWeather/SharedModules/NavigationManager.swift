@@ -17,6 +17,7 @@ public class NavigationManager {
         case forecastWeather = "WeatherForecast"
         case settings = "Settings"
         case errorView = "ErrorView"
+        case previewForecast = "PreviewForecast"
     }
     
     
@@ -41,6 +42,12 @@ public class NavigationManager {
         let errorScreen = mainStoryboard.instantiateViewController(withIdentifier: ViewNames.errorView.rawValue) as! ErrorViewController
         errorScreen.errorCode = errorCode
         vc.navigationController?.pushViewController(errorScreen, animated: true)
+    }
+    
+    class func presentPreviewWeather(vc: UIViewController, forecastWeatherData: WeatherForecast) {
+        let previewWeatherScreen = mainStoryboard.instantiateViewController(withIdentifier: ViewNames.previewForecast.rawValue) as! PreviewWeatherViewController
+        previewWeatherScreen.moreInfoForecastData = forecastWeatherData
+        vc.present(previewWeatherScreen, animated: true, completion: nil)
     }
     
     

@@ -14,16 +14,16 @@ import MessageUI
 class SettingsTableViewController: UITableViewController, UITextViewDelegate, MFMailComposeViewControllerDelegate {
     @IBOutlet weak var BuildNumberLabel: UILabel!
     @IBOutlet weak var MetricSystemLabel: UILabel!
-    @IBOutlet weak var SegmentSwitcher: UISegmentedControl!
+    @IBOutlet weak var SegmentSwitcherMetricSystem: UISegmentedControl!
     @IBOutlet weak var ViewSourceCodeLabel: UILabel!
-    @IBOutlet weak var GitHubOutlet: UIButton!
+    @IBOutlet weak var ViewSourceCodeButtonOutlet: UIButton!
     @IBOutlet weak var ContactUsLabel: UILabel!
     @IBOutlet weak var ContactUsButtonOutlet: UIButton!
-    @IBOutlet weak var IconBuildNumberOutlet: UIView!
-    @IBOutlet weak var MetricSystemOutlet: UIView!
-    @IBOutlet weak var ViewSourceCodeOutlet: UIView!
-    @IBOutlet weak var ContactUsOutlet: UIView!
-    @IBOutlet weak var ContactUsTip: UILabel!
+    @IBOutlet weak var IconBuildNumberBackView: UIView!
+    @IBOutlet weak var MetricSystemBackView: UIView!
+    @IBOutlet weak var ViewSourceCodeBackView: UIView!
+    @IBOutlet weak var ContactUsBackView: UIView!
+    @IBOutlet weak var ContactUsTipLabel: UILabel!
     
     private let gitHubUrl = "https://github.com/PhotolocaDeveloper/SimpleWeather"
     private let email = "georglyurko@yandex.ru"
@@ -31,15 +31,11 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        IconBuildNumberOutlet.makeCornersRounder(radius: 10)
-        MetricSystemOutlet.makeCornersRounder(radius: 10)
-        ViewSourceCodeOutlet.makeCornersRounder(radius: 10)
-        ContactUsOutlet.makeCornersRounder(radius: 10)
+        // Round array of views
+        let viewArray = [IconBuildNumberBackView, MetricSystemBackView, ViewSourceCodeBackView, ContactUsBackView]
+        UiHelper.roundViewConrners(views: viewArray as! [UIView], radius: 10)
+        UiHelper.dropViewShadows(views: viewArray as! [UIView])
         
-        IconBuildNumberOutlet.dropShadow()
-        MetricSystemOutlet.dropShadow()
-        ViewSourceCodeOutlet.dropShadow()
-        ContactUsOutlet.dropShadow()
         
         UiHelper.darkStatusbar()
         localizeSettingsScreen()
@@ -49,12 +45,12 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
         setupSegmentState()
         
         ContactUsButtonOutlet.setTitle(email, for: .normal)
-        GitHubOutlet.setTitle(gitHubUrl, for: .normal)
+        ViewSourceCodeButtonOutlet.setTitle(gitHubUrl, for: .normal)
     }
     
     private func setupSegmentFont() {
         if let font = UIFont(name: "HeadingCompressedPro-Bold", size: 20) {
-            SegmentSwitcher.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
+            SegmentSwitcherMetricSystem.setTitleTextAttributes([NSAttributedStringKey.font: font], for: .normal)
         } else {
             print("error")
         }
@@ -115,10 +111,10 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     
     @IBAction func SegmentAction(_ sender: UISegmentedControl) {
         
-        if SegmentSwitcher.selectedSegmentIndex == 0 {
+        if SegmentSwitcherMetricSystem.selectedSegmentIndex == 0 {
             UserDefaultsManager.setToCelsius()
             print(UserDefaultsManager.isUseCelsius())
-        } else if SegmentSwitcher.selectedSegmentIndex == 1 {
+        } else if SegmentSwitcherMetricSystem.selectedSegmentIndex == 1 {
             UserDefaultsManager.setToFahrenheit()
             print(UserDefaultsManager.isUseCelsius())
         }
@@ -127,11 +123,11 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     
     private func setupSegmentState() {
         if UserDefaultsManager.isUseCelsius() == true {
-            SegmentSwitcher.selectedSegmentIndex = 0
+            SegmentSwitcherMetricSystem.selectedSegmentIndex = 0
         } else if UserDefaultsManager.isUseCelsius() == false {
-             SegmentSwitcher.selectedSegmentIndex = 1
+             SegmentSwitcherMetricSystem.selectedSegmentIndex = 1
         } else {
-             SegmentSwitcher.selectedSegmentIndex = 0
+             SegmentSwitcherMetricSystem.selectedSegmentIndex = 0
         }
     }
     
@@ -139,9 +135,9 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
         MetricSystemLabel.text = LocalizeApp.selectMetricsSystem.instance
         ViewSourceCodeLabel.text = LocalizeApp.viewCode.instance
         ContactUsLabel.text = LocalizeApp.contactUs.instance
-        ContactUsTip.text = "*" + " " + LocalizeApp.makeBetterDesc.instance
-        SegmentSwitcher.setTitle(LocalizeApp.eu.instance, forSegmentAt: 0)
-        SegmentSwitcher.setTitle(LocalizeApp.us.instance, forSegmentAt: 1)
+        ContactUsTipLabel.text = "*" + " " + LocalizeApp.makeBetterDesc.instance
+        SegmentSwitcherMetricSystem.setTitle(LocalizeApp.eu.instance, forSegmentAt: 0)
+        SegmentSwitcherMetricSystem.setTitle(LocalizeApp.us.instance, forSegmentAt: 1)
         
         BuildNumberLabel.text = UiHelper.getBuildNumber()
     }

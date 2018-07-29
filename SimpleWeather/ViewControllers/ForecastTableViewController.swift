@@ -88,6 +88,11 @@ class ForecastTableViewController: UITableViewController {
 
        
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataForPreview = arrayOfForecastData[indexPath.row]
+        NavigationManager.presentPreviewWeather(vc: self, forecastWeatherData: dataForPreview)
+    }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -98,6 +103,8 @@ class ForecastTableViewController: UITableViewController {
         // Func to fill data into rows
         weatherDataUiHeper.fillForecast(weatherForecastData: dataToFill, icon: cell.ForecastImage, date: cell.ForecastDateLabel, text: cell.ForecastTextDescription!, avgTemp: cell.AvgTempLabel, precip: cell.PrecipLabel)
 
+        cell.selectionStyle = .none
+        
         return cell
     }
     
