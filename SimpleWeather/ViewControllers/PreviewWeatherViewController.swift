@@ -35,6 +35,10 @@ class PreviewWeatherViewController: UIViewController {
         
         BackView.makeCornersRounder(radius: 10)
         BackImageView.roundView()
+        
+        BackView.dropShadow()
+        BackImageView.dropShadow()
+        
         self.navigationItem.setHidesBackButton(true, animated:true)
         makeNavBarTransclusent()
     }
