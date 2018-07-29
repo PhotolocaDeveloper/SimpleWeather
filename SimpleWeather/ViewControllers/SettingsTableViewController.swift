@@ -19,13 +19,28 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     @IBOutlet weak var GitHubOutlet: UIButton!
     @IBOutlet weak var ContactUsLabel: UILabel!
     @IBOutlet weak var ContactUsButtonOutlet: UIButton!
-    @IBOutlet weak var DescriptionTextView: UITextView!
+    @IBOutlet weak var IconBuildNumberOutlet: UIView!
+    @IBOutlet weak var MetricSystemOutlet: UIView!
+    @IBOutlet weak var ViewSourceCodeOutlet: UIView!
+    @IBOutlet weak var ContactUsOutlet: UIView!
+    @IBOutlet weak var ContactUsTip: UILabel!
     
     private let gitHubUrl = "https://github.com/PhotolocaDeveloper/SimpleWeather"
     private let email = "georglyurko@yandex.ru"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        IconBuildNumberOutlet.makeCornersRounder(radius: 10)
+        MetricSystemOutlet.makeCornersRounder(radius: 10)
+        ViewSourceCodeOutlet.makeCornersRounder(radius: 10)
+        ContactUsOutlet.makeCornersRounder(radius: 10)
+        
+        IconBuildNumberOutlet.dropShadow()
+        MetricSystemOutlet.dropShadow()
+        ViewSourceCodeOutlet.dropShadow()
+        ContactUsOutlet.dropShadow()
+        
         UiHelper.darkStatusbar()
         localizeSettingsScreen()
         setupNavBar()
@@ -122,10 +137,9 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     
     private func localizeSettingsScreen() {
         MetricSystemLabel.text = LocalizeApp.selectMetricsSystem.instance
-        DescriptionTextView.text = "*" + " " + LocalizeApp.makeBetterDesc.instance
         ViewSourceCodeLabel.text = LocalizeApp.viewCode.instance
         ContactUsLabel.text = LocalizeApp.contactUs.instance
-        
+        ContactUsTip.text = "*" + " " + LocalizeApp.makeBetterDesc.instance
         SegmentSwitcher.setTitle(LocalizeApp.eu.instance, forSegmentAt: 0)
         SegmentSwitcher.setTitle(LocalizeApp.us.instance, forSegmentAt: 1)
         

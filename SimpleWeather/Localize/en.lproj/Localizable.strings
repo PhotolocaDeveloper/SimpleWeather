@@ -38,13 +38,13 @@
 "AverageTemp" = "Average temperature";
 "Precipitation" = "Total Precipitation";
 
-"SelectMetricsSystem" = "Select metrics system";
-"ViewCode" = "View app source code";
+"SelectMetricsSystem" = "Metrics system";
+"ViewCode" = "Source code";
 "ContactUs" = "Contact us";
 "US" = "USA";
 "EU" = "Europe";
 
-"MakeBetterDesc"  = "If you have suggestions for improving the performance of the application or you have noticed a bug - contact us by email by clicking on the button. If you do not use the standard email application for iPhone you can copy the email address by holding the button above.";
+"MakeBetterDesc"  = "Hold on button to save email to clipboard";
 
 
 
