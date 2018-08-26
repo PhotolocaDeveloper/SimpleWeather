@@ -38,6 +38,8 @@
 "AverageTemp" = "Average temperature";
 "Precipitation" = "Total Precipitation";
 "kmShort" = "Km";
+"cel" = "Celsius";
+"pharh" = "Fahrenheit";
 
 
 "SelectMetricsSystem" = "Metrics system";

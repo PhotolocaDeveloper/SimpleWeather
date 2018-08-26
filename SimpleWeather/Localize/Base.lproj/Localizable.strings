@@ -49,6 +49,9 @@
 "US" = "USA";
 "EU" = "Europe";
 
+"cel" = "Celsius";
+"pharh" = "Fahrenheit";
+
 "MakeBetterDesc"  = "Hold on button to save email to clipboard";
 
 "MaxTemp" = "Max tempreture";

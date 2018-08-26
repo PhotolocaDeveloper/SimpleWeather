@@ -12,6 +12,8 @@ class ForecastTableViewController: UITableViewController {
     
     var lat: Double!
     var lon: Double!
+    private let uiThread = DispatchQueue.main
+    private let generalThread = DispatchQueue.global(qos: .userInteractive)
     
     private var dimView: UIView!
     private var arrayOfForecastData: [WeatherForecast]!
@@ -20,27 +22,29 @@ class ForecastTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
-        dimScreen()
-        ProgressHUD.show()
-        
-        UiHelper.darkStatusbar()
         setupNavBar()
+        UiHelper.darkStatusbar()
         
-        weatherDataUiHeper = WeatherDataUiHeper.init()
-        
-        let getWeatherData = GetWeatherData.init(lat: lat, lon: lon)
-        getWeatherData.getForecastWeatherData(successGettingsForecast: { (weatherForcastArray) in
-
-            self.arrayOfForecastData = weatherForcastArray
-            print(self.arrayOfForecastData.count)
-            self.tableView.reloadData()
-            self.dissmisDimView()
-        }) { (error) in
-            self.dissmisDimView()
-            ProgressHUD.dismiss()
-            NavigationManager.presentErrorScreen(vc: self, errorCode: error)
+        uiThread.async {
+            self.dimScreen()
+            ProgressHUD.show()
         }
+        
+        generalThread.async {
+            self.weatherDataUiHeper = WeatherDataUiHeper.init()
+            
+            let getWeatherData = GetWeatherData.init(lat: self.lat, lon: self.lon)
+            getWeatherData.getForecastWeatherData(successGettingsForecast: { (weatherForcastArray) in
+                self.arrayOfForecastData = weatherForcastArray
+                self.tableView.reloadData()
+                self.dissmisDimView()
+            }) { (error) in
+                self.dissmisDimView()
+                ProgressHUD.dismiss()
+                NavigationManager.presentErrorScreen(vc: self, errorCode: error)
+            }
+        }
+        
     }
     
     private func dissmisDimView() {
@@ -90,8 +94,11 @@ class ForecastTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataForPreview = arrayOfForecastData[indexPath.row]
-        NavigationManager.presentPreviewWeather(vc: self, forecastWeatherData: dataForPreview)
+        uiThread.async {
+            let dataForPreview = self.arrayOfForecastData[indexPath.row]
+            NavigationManager.presentPreviewWeather(vc: self, forecastWeatherData: dataForPreview)
+        }
+        
     }
 
     

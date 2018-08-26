@@ -55,11 +55,14 @@ public enum LocalizeApp: String {
     case averageHumidity = "AverageHumidity"
     case AverageVis = "AverageVis"
     case kmShort = "kmShort"
+    case cel = "cel"
+    case phar = "pharh"
     
     
     var instance: String  {
         return NSLocalizedString(self.rawValue, comment: "")
     }
+    
     
 }
 

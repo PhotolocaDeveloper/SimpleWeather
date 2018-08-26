@@ -921,7 +921,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c3P-gv-bv4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-0.80000000000000004" y="866.71664167916049"/>
+            <point key="canvasLocation" x="940" y="1053"/>
         </scene>
         <!--Forecast Table View Controller-->
         <scene sceneID="wE2-IR-KFi">
@@ -1071,7 +1071,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="L8s-lB-4SQ" kind="show" id="EQ9-O7-F3g"/>
+                        <segue destination="L8s-lB-4SQ" kind="show" identifier="ShowForecast" id="EQ9-O7-F3g"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MMR-fs-8FA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1314,6 +1314,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jaZ-zY-2PR"/>
                     </view>
+                    <navigationItem key="navigationItem" id="2cm-tM-LM6"/>
                     <connections>
                         <outlet property="AvgVisLabel" destination="QPq-NJ-LGV" id="6ca-3n-iFP"/>
                         <outlet property="AvgVisTitleLabel" destination="tPs-Jl-Dze" id="INs-wv-zWL"/>

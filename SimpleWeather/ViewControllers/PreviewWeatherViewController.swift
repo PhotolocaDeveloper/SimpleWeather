@@ -26,28 +26,39 @@ class PreviewWeatherViewController: UIViewController {
     
     var moreInfoForecastData: WeatherForecast?
     
+    private let uiThread = DispatchQueue.main
+    
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        localizePreviewScreen()
-        let weatherDataUiHelper = WeatherDataUiHeper()
-        
-        weatherDataUiHelper.fillPreviewForecastData(weatherForecastData: moreInfoForecastData!, icon: ForecastImage, maxTempLabel: MaxTempLabel, minTempLabel: MinTempLabel, maxWindSpeedLabel: MaxWindSpeedLabel, avgHumidityLabel: AvghumidityLabel, avgVisLabel: AvgVisLabel)
-        
-        BackView.makeCornersRounder(radius: 10)
-        BackImageView.roundView()
-        
-        BackView.dropShadow()
-        BackImageView.dropShadow()
+        super.viewWillAppear(false)
         
         self.navigationItem.setHidesBackButton(true, animated:true)
-        makeNavBarTransclusent()
+
+    
+        uiThread.async {
+            self.localizePreviewScreen()
+            let weatherDataUiHelper = WeatherDataUiHeper()
+            
+            weatherDataUiHelper.fillPreviewForecastData(weatherForecastData: self.moreInfoForecastData!, icon: self.ForecastImage, maxTempLabel: self.MaxTempLabel, minTempLabel: self.MinTempLabel, maxWindSpeedLabel: self.MaxWindSpeedLabel, avgHumidityLabel: self.AvghumidityLabel, avgVisLabel: self.AvgVisLabel)
+            
+            self.BackView.makeCornersRounder(radius: 10)
+            self.BackImageView.roundView()
+            
+            self.BackView.dropShadow()
+            self.BackImageView.dropShadow()
+            
+            self.makeNavBarTransclusent()
+        }
+        
+        
+       
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        dismiss(animated: true, completion: nil)
+        uiThread.async {
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
-   
-    
     
     private func makeNavBarTransclusent() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
@@ -61,7 +72,5 @@ class PreviewWeatherViewController: UIViewController {
         AvghumidityTitleLabel.text = LocalizeApp.averageHumidity.instance
         AvgVisTitleLabel.text = LocalizeApp.AverageVis.instance
     }
-    
-
     
 }

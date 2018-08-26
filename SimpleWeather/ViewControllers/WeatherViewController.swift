@@ -42,6 +42,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
     @IBOutlet weak var RoundView: UIView!
     @IBOutlet weak var ScrollView: UIScrollView!
     
+    private let uiThread = DispatchQueue.main
+    private let generalThread = DispatchQueue.global(qos: .userInteractive)
+    
     private var dimView: UIView!
 
     private var locationManager: CLLocationManager!
@@ -54,18 +57,25 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
     
     private var weatherDataUiHeper: WeatherDataUiHeper!
     
+  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-    
-        weatherDataUiHeper = WeatherDataUiHeper.init()
-        ScrollView.delegate = self
-        UiHelper.whiteStatusbar()
-        setupNavBar()
-        determineMyCurrentLocation()
-        localizeApp()
-        RoundView.roundView()
-        ForecastOutlet.roundCorners(radius: 10)
+        uiThread.async {
+            self.ScrollView.delegate = self
+            UiHelper.whiteStatusbar()
+            self.setupNavBar()
+            self.localizeApp()
+            self.RoundView.roundView()
+            self.ForecastOutlet.roundCorners(radius: 10)
+        }
+        
+        generalThread.sync {
+            determineMyCurrentLocation()
+            weatherDataUiHeper = WeatherDataUiHeper.init()
+        }
+        
+        
     }
     
     
@@ -100,9 +110,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
         settingsButton.setImage(UIImage(named: "Menu")?.withRenderingMode(.alwaysOriginal), for: .normal)
         settingsButton.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
         settingsButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: settingsButton)
     }
-    
     
     
     @objc func menuButtonAction() {
@@ -137,27 +147,33 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
         currentLocation = locations[0] as CLLocation
         
         lat = currentLocation.coordinate.latitude
         lon = currentLocation.coordinate.longitude
         print("Lat = \(lat!)"); print("Lon = \(lon!)")
         
+        
         if lat != nil && lon != nil {
+            let lat = self.lat?.roundTo(places: 5)
+            let lon = self.lon?.roundTo(places: 5)
             
             // Set lat and lon label text
             DispatchQueue.main.async {
-                let lat = self.lat?.roundTo(places: 5)
-                let lon = self.lon?.roundTo(places: 5)
                 self.LatLabel.text = String(lat!)
                 self.LonLabel.text = String(lon!)
             }
             
+         
+            self.getWeatherModule = GetWeatherData(lat: lat!, lon: lon!)
+            
         
-            getWeatherModule = GetWeatherData(lat: lat!, lon: lon!)
+            
             getWeatherModule.getWeatherData(currentWeather: { (currentWeatherData) in
                 
-                DispatchQueue.main.async {
+                
+                self.uiThread.async {
     
                  // fill date func
                     self.weatherDataUiHeper.fillMainData(currentWeatherData: currentWeatherData, feelsLikeLabel: self.FeelsLikeLabel, timeOfADayLabel: self.TimeOfDayLabel, tempLabel: self.TemretureLabel, pressureLabel: self.PressureLabel, precipLabel: self.PrecipLabel, visibilityLabel: self.VisibilityLabel, windSpeedLabel: self.WindSpeedLabel, humidityLabel: self.HumidityLabel, cloudLabel: self.CloudLabel)
@@ -165,7 +181,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
                 }
                 
             }, conditionWeather: { (conditionWeatherData) in
-                DispatchQueue.main.async {
+                self.uiThread.async {
                     
                      // fill date func
                     self.weatherDataUiHeper.fillConditionWeatherData(conditionWeatherData: conditionWeatherData, weatherDescription: self.WeatherTextLabel, icon: self.ForecastImage)
@@ -176,10 +192,17 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
                 
             }, locationWeather: { (locationWeatherData) in
                 // fill date func
-                self.weatherDataUiHeper.fillLocationWeatherData(locationWeatherData: locationWeatherData, localTimeLabel: self.LocalTimeLabel, cityNameLabel: self.CityNameLabel)
+                self.uiThread.async {
+                    self.weatherDataUiHeper.fillLocationWeatherData(locationWeatherData: locationWeatherData, localTimeLabel: self.LocalTimeLabel, cityNameLabel: self.CityNameLabel)
+                }
+                
             }) { (error) in
-                ProgressHUD.dismiss()
-                self.dissmisDimView()
+                
+                self.uiThread.async {
+                    ProgressHUD.dismiss()
+                    self.dissmisDimView()
+                }
+                
                 NavigationManager.presentErrorScreen(vc: self, errorCode: error!)
             }
             

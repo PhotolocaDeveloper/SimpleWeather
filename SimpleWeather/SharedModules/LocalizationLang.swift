@@ -10,9 +10,12 @@ import Foundation
 
 public class LocalizationLang {
     
+   
+    
     // Getting current app lang and use it to create request 
     class func getAppLocalizationLang() -> String {
         let appLanguage = Locale.preferredLanguages[0]
+        print(appLanguage)
         let arr = appLanguage.components(separatedBy: "-")
         let deviceLanguage = arr.first
         

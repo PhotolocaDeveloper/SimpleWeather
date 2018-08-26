@@ -28,24 +28,31 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     private let gitHubUrl = "https://github.com/PhotolocaDeveloper/SimpleWeather"
     private let email = "georglyurko@yandex.ru"
     
+    private let uiThread = DispatchQueue.main
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+         setupNavBar()
         
         // Round array of views
-        let viewArray = [IconBuildNumberBackView, MetricSystemBackView, ViewSourceCodeBackView, ContactUsBackView]
-        UiHelper.roundViewConrners(views: viewArray as! [UIView], radius: 10)
-        UiHelper.dropViewShadows(views: viewArray as! [UIView])
+        uiThread.async {
+            let viewArray = [self.IconBuildNumberBackView, self.MetricSystemBackView, self.ViewSourceCodeBackView, self.ContactUsBackView]
+            UiHelper.roundViewConrners(views: viewArray as! [UIView], radius: 10)
+            UiHelper.dropViewShadows(views: viewArray as! [UIView])
+            
+            
+            UiHelper.darkStatusbar()
+            self.localizeSettingsScreen()
+           
+            self.setupSegmentFont()
+            self.setupLongButtonHold()
+            self.setupSegmentState()
+            
+            self.ContactUsButtonOutlet.setTitle(self.email, for: .normal)
+            self.ViewSourceCodeButtonOutlet.setTitle(self.gitHubUrl, for: .normal)
+        }
         
-        
-        UiHelper.darkStatusbar()
-        localizeSettingsScreen()
-        setupNavBar()
-        setupSegmentFont()
-        setupLongButtonHold()
-        setupSegmentState()
-        
-        ContactUsButtonOutlet.setTitle(email, for: .normal)
-        ViewSourceCodeButtonOutlet.setTitle(gitHubUrl, for: .normal)
+       
     }
     
     private func setupSegmentFont() {
@@ -81,11 +88,7 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
+   
     @IBAction func ViewSourceCode(_ sender: UIButton) {
         let url = URL(string: gitHubUrl)
         if UIApplication.shared.canOpenURL(url!) {
@@ -110,7 +113,6 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     
     
     @IBAction func SegmentAction(_ sender: UISegmentedControl) {
-        
         if SegmentSwitcherMetricSystem.selectedSegmentIndex == 0 {
             UserDefaultsManager.setToCelsius()
             print(UserDefaultsManager.isUseCelsius())
@@ -118,7 +120,6 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
             UserDefaultsManager.setToFahrenheit()
             print(UserDefaultsManager.isUseCelsius())
         }
-        
     }
     
     private func setupSegmentState() {
@@ -154,7 +155,6 @@ class SettingsTableViewController: UITableViewController, UITextViewDelegate, MF
     }
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-        
         controller.dismiss(animated: true, completion: nil)
     }
     
