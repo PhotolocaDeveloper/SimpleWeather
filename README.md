@@ -14,17 +14,23 @@
 
 ![Текущая погода](https://preview.ibb.co/g9dQv9/IMG_2293.png)
 
----
-
-![Прогноз](https://ibb.co/hpX78U)
 
 ---
 
-![Просмотр прогноза](https://ibb.co/dNyQv9)
+
+![Прогноз](https://preview.ibb.co/iTJ3hp/IMG_2294.png)
+
 
 ---
 
-![Настройки приложентя](https://ibb.co/cn4yF9)
+
+![Просмотр прогноза](https://preview.ibb.co/fHwZoU/IMG_2295.png)
+
+
+---
+
+
+![Настройки приложентя](https://preview.ibb.co/fHwZoU/IMG_2295.png)
 
 
 
