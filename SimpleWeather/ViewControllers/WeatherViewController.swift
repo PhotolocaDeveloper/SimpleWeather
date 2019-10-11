@@ -139,10 +139,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
         
         if CLLocationManager.locationServicesEnabled() {
             locationManager.startUpdatingLocation()
+            return
         } else {
             dissmisDimView()
             ProgressHUD.dismiss()
             NavigationManager.presentErrorScreen(vc: self, errorCode: LocalizeApp.errorGettingsLocation.instance)
+            return
         }
     }
     
@@ -167,8 +169,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
             
          
             self.getWeatherModule = GetWeatherData(lat: lat!, lon: lon!)
-            
-        
             
             getWeatherModule.getWeatherData(currentWeather: { (currentWeatherData) in
                 
@@ -223,13 +223,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIScro
             ProgressHUD.dismiss()
         })
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
-        locationManager = nil
-        currentLocation = nil
-    }
-
     
     @IBAction func ForecastAction(_ sender: UIButton) {
         NavigationManager.presentForecastWeatherScreen(vc: self, lat: lat!, lon: lon!)
